@@ -6,17 +6,21 @@
           <h1 class="text-4xl md:text-5xl font-bold text-gray-800">
             Bem-vindo ao Nuxt + Tailwind! 🎨
           </h1>
-          <button 
-            @click="handleLogout"
-            class="text-sm text-gray-600 hover:text-gray-800 underline"
-          >
-            Sair
-          </button>
+          <ClientOnly>
+            <button 
+              @click="handleLogout"
+              class="text-sm text-gray-600 hover:text-gray-800 underline"
+            >
+              Sair
+            </button>
+          </ClientOnly>
         </div>
         
-        <p v-if="user" class="text-sm text-gray-600 mb-4">
-          Logado como: <strong>{{ user.email }}</strong>
-        </p>
+        <ClientOnly>
+          <p v-if="user" class="text-sm text-gray-600 mb-4">
+            Logado como: <strong>{{ user.email }}</strong>
+          </p>
+        </ClientOnly>
         
         <p class="text-lg text-gray-600 mb-8">
           Este é um template com Nuxt 4, Supabase e Tailwind CSS totalmente configurado.
