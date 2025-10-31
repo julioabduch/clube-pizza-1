@@ -2,9 +2,21 @@
   <div class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
     <div class="max-w-2xl w-full">
       <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-          Bem-vindo ao Nuxt + Tailwind! 🎨
-        </h1>
+        <div class="flex justify-between items-start mb-4">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800">
+            Bem-vindo ao Nuxt + Tailwind! 🎨
+          </h1>
+          <button 
+            @click="handleLogout"
+            class="text-sm text-gray-600 hover:text-gray-800 underline"
+          >
+            Sair
+          </button>
+        </div>
+        
+        <p v-if="user" class="text-sm text-gray-600 mb-4">
+          Logado como: <strong>{{ user.email }}</strong>
+        </p>
         
         <p class="text-lg text-gray-600 mb-8">
           Este é um template com Nuxt 4, Supabase e Tailwind CSS totalmente configurado.
@@ -35,6 +47,14 @@
   </div>
 </template>
 
-<script setup>
-// Adicione sua lógica aqui
+<script setup lang="ts">
+const { user, logout } = useAuth()
+
+const handleLogout = async () => {
+  try {
+    await logout()
+  } catch (error) {
+    console.error('Erro ao fazer logout:', error)
+  }
+}
 </script>
