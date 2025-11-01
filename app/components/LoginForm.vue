@@ -1,11 +1,16 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="space-y-6">
-    <div v-if="errorMessage" class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
-      {{ errorMessage }}
-    </div>
+  <UForm :state="state" @submit="handleSubmit" class="space-y-6">
+    <UAlert
+      v-if="errorMessage"
+      color="error"
+      variant="soft"
+      :title="errorMessage"
+      :close-button="{ icon: 'i-heroicons-x-mark', color: 'error', variant: 'link' }"
+      @close="errorMessage = ''"
+    />
 
     <BaseInput
-      v-model="email"
+      v-model="state.email"
       type="email"
       label="Email"
       placeholder="seu@email.com"
@@ -14,7 +19,7 @@
     />
 
     <InputPassword
-      v-model="password"
+      v-model="state.password"
       label="Senha"
       placeholder="••••••••"
       required
@@ -24,12 +29,15 @@
     <BaseButton type="submit" :loading="loading">
       Entrar
     </BaseButton>
-  </form>
+  </UForm>
 </template>
 
 <script setup lang="ts">
-const email = ref('')
-const password = ref('')
+const state = reactive({
+  email: '',
+  password: ''
+})
+
 const loading = ref(false)
 const errorMessage = ref('')
 
@@ -40,7 +48,7 @@ const handleSubmit = async () => {
   errorMessage.value = ''
 
   try {
-    await login(email.value, password.value)
+    await login(state.email, state.password)
     await navigateTo('/')
   } catch (error: any) {
     errorMessage.value = error.message || 'Erro ao fazer login. Verifique suas credenciais.'
