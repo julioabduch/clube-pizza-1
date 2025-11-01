@@ -1,2 +1,103 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@theme {
+  /* Cores do Clube da Pizza - Esquema Laranja/Amarelo */
+  
+  /* PRIMÁRIA - Laranja (base do design) */
+  --color-orange-50: #fff7ed;
+  --color-orange-100: #ffedd5;
+  --color-orange-200: #fed7aa;
+  --color-orange-300: #fdba74;
+  --color-orange-400: #fb923c;
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+  --color-orange-700: #c2410c;
+  --color-orange-800: #9a3412;
+  --color-orange-900: #7c2d12;
+  --color-orange-950: #431407;
+  
+  /* SECUNDÁRIA - Vermelho Pizza */
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  --color-red-800: #991b1b;
+  --color-red-900: #7f1d1d;
+  --color-red-950: #450a0a;
+  
+  /* Amarelo para badges e destaques */
+  --color-yellow-50: #fefce8;
+  --color-yellow-100: #fef9c3;
+  --color-yellow-200: #fef08a;
+  --color-yellow-300: #fde047;
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04;
+  --color-yellow-700: #a16207;
+  --color-yellow-800: #854d0e;
+  --color-yellow-900: #713f12;
+  --color-yellow-950: #422006;
+}
+
+/* CSS Variables do Nuxt UI - Mapeamento das cores semânticas */
+:root {
+  /* Cores Semânticas - Modo Claro */
+  --ui-primary: var(--color-orange-600);
+  --ui-secondary: var(--color-red-600);
+  --ui-success: var(--color-orange-600);
+  --ui-info: var(--color-orange-500);
+  --ui-warning: var(--color-yellow-500);
+  --ui-error: var(--color-red-600);
+  
+  /* Backgrounds */
+  --ui-bg: var(--color-white);
+  --ui-bg-muted: var(--color-orange-50);
+  --ui-bg-elevated: var(--color-orange-100);
+  --ui-bg-accented: var(--color-orange-200);
+  --ui-bg-inverted: var(--color-neutral-900);
+  
+  /* Textos */
+  --ui-text: var(--color-neutral-700);
+  --ui-text-highlighted: var(--color-neutral-900);
+  --ui-text-muted: var(--color-neutral-500);
+  --ui-text-dimmed: var(--color-neutral-400);
+  --ui-text-inverted: var(--color-white);
+  
+  /* Bordas */
+  --ui-border: var(--color-neutral-200);
+  --ui-border-accented: var(--color-orange-300);
+  
+  /* Raio de borda base */
+  --ui-radius: 0.5rem;
+}
+
+/* Modo Escuro (opcional) */
+.dark {
+  --ui-primary: var(--color-orange-400);
+  --ui-secondary: var(--color-red-400);
+  --ui-success: var(--color-orange-400);
+  --ui-info: var(--color-orange-400);
+  --ui-warning: var(--color-yellow-400);
+  --ui-error: var(--color-red-400);
+  
+  --ui-bg: var(--color-neutral-900);
+  --ui-bg-muted: var(--color-neutral-800);
+  --ui-bg-elevated: var(--color-neutral-800);
+  --ui-bg-accented: var(--color-neutral-700);
+  --ui-bg-inverted: var(--color-white);
+  
+  --ui-text: var(--color-neutral-200);
+  --ui-text-highlighted: var(--color-white);
+  --ui-text-muted: var(--color-neutral-400);
+  --ui-text-dimmed: var(--color-neutral-500);
+  --ui-text-inverted: var(--color-neutral-900);
+  
+  --ui-border: var(--color-neutral-800);
+  --ui-border-accented: var(--color-neutral-700);
+}
+

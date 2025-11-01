@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center p-4">
+  <div class="min-h-screen bg-gradient-to-br from-orange-50 via-orange-100 to-orange-200 flex items-center justify-center p-4">
     <UCard class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <UIcon name="i-heroicons-cake" class="w-16 h-16 text-orange-600 mx-auto mb-4" />
-          <h1 class="text-3xl font-bold text-gray-900 mb-2">
+          <UIcon name="i-heroicons-cake" class="w-16 h-16 text-primary mx-auto mb-4" />
+          <h1 class="text-3xl font-bold text-highlighted mb-2">
             Bem-vindo
           </h1>
-          <p class="text-gray-600">
+          <p class="text-muted">
             Entre com suas credenciais para continuar
           </p>
         </div>
@@ -18,14 +18,14 @@
       <template #footer>
         <div class="space-y-4">
           <div class="text-center">
-            <ULink to="#" class="text-sm text-red-700 hover:text-red-800">
+            <ULink to="#" class="text-sm text-primary hover:text-primary/80">
               Esqueceu sua senha?
             </ULink>
           </div>
 
-          <div class="text-center text-sm text-gray-600">
+          <div class="text-center text-sm text-muted">
             Não tem uma conta?
-            <ULink to="#" class="text-orange-700 hover:text-orange-800 font-semibold">
+            <ULink to="#" class="text-primary hover:text-primary/80 font-semibold">
               Cadastre-se
             </ULink>
           </div>
