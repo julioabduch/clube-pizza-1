@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  status?: 'available' | 'ordered' | 'unavailable'
+  status?: 'available' | 'ordered' | 'delivered'
   statusText?: string
 }>()
 
@@ -17,11 +17,11 @@ const statusConfig = {
     bgColor: 'bg-orange-50',
     text: 'Pedido realizado'
   },
-  unavailable: {
-    icon: 'x-circle',
-    color: 'text-gray-600',
-    bgColor: 'bg-gray-50',
-    text: 'Indisponível'
+  delivered: {
+    icon: 'check-badge',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
+    text: 'Pizza entregue'
   }
 }
 </script>
@@ -86,7 +86,7 @@ const statusConfig = {
           />
         </svg>
 
-        <!-- Ícone de X (indisponível) -->
+        <!-- Ícone de Entregue (delivered) -->
         <svg
           v-else
           xmlns="http://www.w3.org/2000/svg"
@@ -94,12 +94,12 @@ const statusConfig = {
           viewBox="0 0 24 24"
           stroke-width="2"
           stroke="currentColor"
-          class="w-6 h-6 text-gray-600"
+          class="w-6 h-6 text-blue-600"
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
           />
         </svg>
 
@@ -108,7 +108,7 @@ const statusConfig = {
             'text-base font-medium',
             status === 'available' || !status ? 'text-green-600' : 
             status === 'ordered' ? 'text-orange-600' : 
-            'text-gray-600'
+            'text-blue-600'
           ]"
         >
           {{ statusText || statusConfig[status || 'available'].text }}

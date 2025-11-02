@@ -138,6 +138,61 @@ const updateUserPassword = async () => {
 - **`serverSupabaseClient()`**: Cliente no servidor
 - **`serverSupabaseServiceRole()`**: Cliente com privilégios admin
 
+## ⚠️ IMPORTANTE: Como obter o User ID corretamente
+
+O `useSupabaseUser()` retorna o token JWT onde o ID está na propriedade `.sub`, não `.id`.
+
+**❌ EVITE:**
+```ts
+const user = useSupabaseUser()
+const userId = user.value?.id // undefined!
+```
+
+**✅ SOLUÇÃO CORRETA:**
+```ts
+const supabase = useSupabaseClient()
+
+// Opção 1: Buscar user do auth
+const { data: { user } } = await supabase.auth.getUser()
+const userId = user?.id // ✅ UUID correto
+
+// Opção 2: Watch com getUser
+watch(useSupabaseUser(), async (newUser) => {
+  if (newUser) {
+    const { data: { user: authUser } } = await supabase.auth.getUser()
+    const userId = authUser?.id
+    // Use userId aqui
+  }
+}, { immediate: true })
+```
+
+**Exemplo completo em composable:**
+```ts
+export const useDados = () => {
+  const supabase = useSupabaseClient()
+  const user = useSupabaseUser()
+
+  const fetchDados = async () => {
+    // Sempre buscar user.id do auth
+    const { data: { user: authUser } } = await supabase.auth.getUser()
+    
+    if (!authUser?.id) {
+      console.error('Usuário não autenticado')
+      return null
+    }
+
+    const { data, error } = await supabase
+      .from('tabela')
+      .select('*')
+      .eq('user_id', authUser.id) // ✅ UUID correto
+      
+    return data
+  }
+
+  return { fetchDados }
+}
+```
+
 ## Observações Importantes
 
 - Configure URLs de redirect no dashboard do Supabase
