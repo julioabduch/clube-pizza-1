@@ -1,3 +1,7 @@
+// TEMPORARIAMENTE DESABILITADO - Aguardando novas tabelas do Supabase
+// Descomentar após criar as tabelas: subscriptions e plans
+
+/*
 import type { SubscriptionDTO } from '~/shared/types/SubscriptionDTO'
 
 export const useSubscription = () => {
