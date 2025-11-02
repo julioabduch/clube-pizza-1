@@ -20,18 +20,30 @@ export const usePizzaFlavors = () => {
   /**
    * Busca sabores disponíveis para um plano específico
    * @param plan - 'classico' ou 'premium'
+   * 
+   * REGRA: 
+   * - Plano Clássico → apenas sabores clássicos
+   * - Plano Premium → sabores clássicos + premium (todos)
    */
   const fetchByPlan = async (plan: SubscriptionPlan) => {
     loading.value = true
     error.value = null
 
     try {
-      const { data, error: supabaseError } = await supabase
+      let query = supabase
         .from('pizza_flavors')
         .select('*')
-        .eq('plan', plan)
         .eq('active', true)
         .order('name', { ascending: true })
+
+      // Se for plano clássico, filtra apenas clássicos
+      // Se for premium, retorna TODOS (não filtra por plan)
+      if (plan === 'classico') {
+        query = query.eq('plan', 'classico')
+      }
+      // Premium não filtra - retorna todos os sabores
+
+      const { data, error: supabaseError } = await query
 
       if (supabaseError) {
         throw supabaseError

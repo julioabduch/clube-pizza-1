@@ -48,6 +48,14 @@ export const useOrders = () => {
         return null
       }
 
+      // Log dos parâmetros para debug
+      console.log('🍕 Criando pedido:', {
+        p_flavor_1: flavor1Id,
+        p_flavor_2: flavor2Id || null,
+        p_address_id: addressId || null,
+        p_observations: observations || null
+      })
+
       // Chamar RPC idempotente
       const { data, error: supabaseError } = await supabase.rpc('api_place_order', {
         p_flavor_1: flavor1Id,
@@ -62,9 +70,11 @@ export const useOrders = () => {
         // - "Já existe pedido nesta semana para esta assinatura"
         // - "Sabor não pertence ao plano da assinatura"
         // - "Sabor inválido"
+        console.error('❌ Erro da RPC api_place_order:', supabaseError)
         throw supabaseError
       }
 
+      console.log('✅ Pedido criado com sucesso:', data)
       currentOrder.value = data as OrderDTO
       return data as OrderDTO
     } catch (err: any) {

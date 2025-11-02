@@ -32,8 +32,8 @@ export const useWeekStatus = () => {
       }
 
       // A RPC retorna array com 1 objeto { week_start, week_end }
-      if (data && Array.isArray(data) && data.length > 0) {
-        const bounds = data[0] as WeekBoundsDTO
+      if (data && Array.isArray(data) && (data as any[]).length > 0) {
+        const bounds = (data as any[])[0] as WeekBoundsDTO
         weekStart.value = bounds.week_start
         weekEnd.value = bounds.week_end
       }
