@@ -42,19 +42,19 @@ export const useOrders = () => {
     currentOrder.value = null
 
     try {
+      // ✅ SEMPRE buscar user.id do auth primeiro (seguindo supabase.prompt.md)
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (!user?.id) {
+        error.value = 'Usuário não autenticado'
+        return null
+      }
+
       // Validar que tem pelo menos 1 sabor
       if (!flavor1Id) {
         error.value = 'Selecione pelo menos um sabor'
         return null
       }
-
-      // Log dos parâmetros para debug
-      console.log('🍕 Criando pedido:', {
-        p_flavor_1: flavor1Id,
-        p_flavor_2: flavor2Id || null,
-        p_address_id: addressId || null,
-        p_observations: observations || null
-      })
 
       // Chamar RPC idempotente
       const { data, error: supabaseError } = await supabase.rpc('api_place_order', {
@@ -65,16 +65,8 @@ export const useOrders = () => {
       } as any)
 
       if (supabaseError) {
-        // Erros possíveis:
-        // - "Plano inválido ou limite de semanas atingido/fora da validade"
-        // - "Já existe pedido nesta semana para esta assinatura"
-        // - "Sabor não pertence ao plano da assinatura"
-        // - "Sabor inválido"
-        console.error('❌ Erro da RPC api_place_order:', supabaseError)
         throw supabaseError
       }
-
-      console.log('✅ Pedido criado com sucesso:', data)
       currentOrder.value = data as OrderDTO
       return data as OrderDTO
     } catch (err: any) {
