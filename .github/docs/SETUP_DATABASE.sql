@@ -32,6 +32,9 @@ END $$;
 -- 2. RPC: week_bounds_sp()
 -- ============================================
 
+-- Dropar função antiga se existir (com qualquer assinatura)
+DROP FUNCTION IF EXISTS week_bounds_sp() CASCADE;
+
 CREATE OR REPLACE FUNCTION week_bounds_sp()
 RETURNS TABLE (
   week_start DATE,
@@ -101,6 +104,9 @@ EXECUTE FUNCTION generate_order_code();
 -- ============================================
 -- 4. RPC: api_place_order()
 -- ============================================
+
+-- Dropar função antiga se existir
+DROP FUNCTION IF EXISTS api_place_order(UUID, UUID, UUID, TEXT) CASCADE;
 
 CREATE OR REPLACE FUNCTION api_place_order(
   p_flavor_1 UUID,
